@@ -1,165 +1,174 @@
 package LSE;
-
-public class ListaSimplementeEnlazada<T extends Comparable<T>>{
+/**
+ * Representa una lista simplemente enlazada genérica y ordenable.
+ * @param <T> tipo de dato que debe ser Comparable
+ */
+public class ListaSimplementeEnlazada<T extends Comparable<T>> {
     protected ElementoSE<T> primero;
     protected int tamaño;
-    //Constructor por defecto de ListaSimplemente Enlazada
+    /** Constructor por defecto.*/
     public ListaSimplementeEnlazada(){
-        this.primero=null; // Inicializamos la lista vacia: el primer elemento no apunta a nada
-        this.tamaño=0; // El tamaño de la lista está vacia
+        this.primero=null; // El primer elemento no apunta a nada
+        this.tamaño=0;     // La lista comienza vacía
     }
-    // Creamos el metodo para añadir elementos
-    public void add(T dato){
-        ElementoSE<T> nuevo=new ElementoSE<>(dato); // Creamos un elemento nuevo del tipo T
 
-        // Comprobamos si la lista esta vacia
+    /** Inserta un dato al final de la lista.*/
+    public void add(T dato){
+        ElementoSE<T> nuevo=new ElementoSE<>(dato); // Creamos un nuevo elemento con el dato
+
         if (primero==null){
-            primero=nuevo; // El nuevo nodo se convierte en la cabeza de la lista
+            primero=nuevo; // Si la lista está vacía el nuevo elemento pasa a ser el primero
         }
-        // Si no está vacia, buscamos el final para crear el nuevo nodo
         else {
-            ElementoSE<T>actual=primero;
+            ElementoSE<T>actual=primero; // Empezamos desde el primer elemento
             while(actual.siguiente!=null){
-                actual=actual.siguiente;
+                actual=actual.siguiente; // Avanzamos hasta llegar al último elemento
             }
-            actual.siguiente=nuevo; // Conectamos el nuevo nodo después del último
+            actual.siguiente=nuevo; // Conectamos el nuevo elemento después del último
         }
         tamaño++; // Incrementamos el tamaño de la lista
     }
+
+    /** Inserta un dato al inicio de la lista.*/
     public T addFirst(T dato) {
-        ElementoSE<T> nuevo = new ElementoSE<>(dato);
-        nuevo.siguiente = primero;  // 1️⃣ nuevo apunta al viejo primero
-        primero = nuevo;            // 2️⃣ primero ahora es el nuevo
-        tamaño++;
+        ElementoSE<T> nuevo = new ElementoSE<>(dato); // Creamos un nuevo elemento con el dato
+        nuevo.siguiente = primero; // El nuevo elemento apunta al que era el primero
+        primero = nuevo;           // El nuevo elemento pasa a ser el primero
+        tamaño++;                  // Incrementamos el tamaño
         return nuevo.dato;
     }
-    // Creamos el metodo para buscar elementos
+
+    /** Busca y devuelve un dato por valor.*/
     public T get(T dato){
-        ElementoSE<T> actual=primero; // Creamos el elemento actual que va a ser nuestro primer elemento de la lista
-        while (actual!=null){  // Diremos que mientras el elemento actual sea distinto de nulo
-            if(actual.dato.compareTo(dato)==0){ // Comparas el dato del nodo con el dato que buscamos
-                return actual.dato; // Si coinciden, devolveremos el dato encontrado
+        ElementoSE<T> actual=primero; // Empezamos desde el primer elemento
+        while (actual!=null){ // Recorremos hasta el final
+            if(actual.dato.compareTo(dato)==0){ // Si el dato coincide lo devolvemos
+                return actual.dato;
             }
-            actual=actual.siguiente; //Si no, avanzamos el puntero al siguiente nodo
-            }
-        return null; // Si terminamos el bucle y no hemos encontrado el elemento me devuelves nullo
+            actual=actual.siguiente; // Avanzamos al siguiente elemento
         }
-    // Creamos nuestro metodo para eliminar elementos de la lista
+        return null; // Si no encontramos el dato devolvemos null
+    }
+    /** Busca y elimina un dato por valor.*/
     public T del(T dato){
-        if(primero==null){  // Si el primer elemento de la lista es igual al nulo
-            return null; // Devuelveme nulo
+        if(primero==null){
+            return null; // Si la lista está vacía devolvemos null
         }
-        if (primero.dato.compareTo(dato)==0){ // Si el dato que queremos borrar está en el primer nodo
-            ElementoSE<T>actual=primero; // Guardamos el nodo actual para no perder el dato
-            primero=actual.siguiente; // El segundo nodo pasa a ser el nuevo primero
-            actual.siguiente=null; // Liberar Memoria
-            tamaño--; // Decrementamos el tamaño de la lista
-            return actual.dato; // Devolvemos el dato del nodo eliminado
-
+        if (primero.dato.compareTo(dato)==0){
+            // Si el dato a eliminar es el primero
+            ElementoSE<T>actual=primero;  // Guardamos el primero para devolverlo
+            primero=actual.siguiente;     // El segundo elemento pasa a ser el primero
+            actual.siguiente=null;        // Desconectamos el elemento eliminado
+            tamaño--;                     // Decrementamos el tamaño
+            return actual.dato;
         }
-        ElementoSE<T>anterior=primero; // Creamos ahora nuestro elemento anterior el cual va a ser el primer elemento de la lista
-        ElementoSE<T>actual=primero.siguiente; // Creamos el elemento actual que va a ser el siguiente elemento al primero
+        ElementoSE<T>anterior=primero;        // Empezamos con anterior apuntando al primero
+        ElementoSE<T>actual=primero.siguiente; // Actual apunta al segundo elemento
 
-        while (actual!=null){ // Cuando mi elemento actual es distinto del nulo
-            if(actual.dato.compareTo(dato)==0){ // Hacemos un "salto": el elemento anterior apunto al elemento que va despues del actual
-                anterior.siguiente=actual.siguiente; //Si es verdad, el elemento siguiente del anterior se convierte en el elemento siguiente del siguiente
-                actual.siguiente=null; //Liberar memoria
-                tamaño--; //Decrementamos el tamaño
-                return actual.dato; // Devolvemos el dato que borramos
+        while (actual!=null){ // Recorremos hasta el final
+            if(actual.dato.compareTo(dato)==0){
+                // Si encontramos el dato hacemos un salto entre anterior y siguiente
+                anterior.siguiente=actual.siguiente; // El anterior apunta al siguiente del actual
+                actual.siguiente=null;               // Desconectamos el elemento eliminado
+                tamaño--;                            // Decrementamos el tamaño
+                return actual.dato;
             }
-            anterior=actual; // Ahora mi dato anterior se convierte en el actual
-            actual=actual.siguiente; // Ahora mi dato actual se convierte en el siguiente a él
+            anterior=actual;           // Anterior avanza al actual
+            actual=actual.siguiente;   // Actual avanza al siguiente
         }
-        return null; //Devolvemos nulo si no hemos encontrado el elemento buscado
+        return null; // Si no encontramos el dato devolvemos null
     }
-
-    public boolean isEmpty(){ //Devolvemos verdadero si el tamaño de la lista es igual a 0 y falso si el tamñano de la lista es distinto de 0
-            return tamaño==0;
+    /** Devuelve true si la lista está vacía, false si no.*/
+    public boolean isEmpty(){
+        return tamaño==0; // Si el tamaño es 0 la lista está vacía
     }
-    public int getSize(){ // Devolvemos el tamaño de la lista
-        return tamaño;
+    /** Devuelve el tamaño de la lista.*/
+    public int getSize(){
+        return tamaño; // Devolvemos el contador de elementos
     }
-
-    public Iterador<T> getIterador(){ // Creamos este metodo para que el usuario pueda recorrer la lista sin saber la composición de la que está hecha.
-        return new IteradorLSE<T>(primero); // Fabricamos un iterador y le decimos que comience en el 'primero' de nuestra lista
+    /** Devuelve un iterador para recorrer la lista.*/
+    public Iterador<T> getIterador(){
+        return new IteradorLSE<T>(primero); // Creamos un iterador comenzando desde el primero
     }
-    public T getAt(int posición){ //Obtenemos el dato en función de la posición en la que se encuentre
-        if (posición>=tamaño || posición<0){ // Observamos que ni la posición sea negativa o mayor que el tamaño de la lista
-            return null; // Devolvemos null
+    /** Devuelve el dato en una posición dada.*/
+    public T getAt(int posición){
+        if (posición>=tamaño || posición<0){
+            return null; // La posición está fuera del rango válido
         }
-        ElementoSE<T>actual=primero; //Creamos un nodo "actual" que apunte al primer elemento
-        int contador=0; // Inicializamos un contador
-        while (contador<posición){ // Si nuestro contador es menor que la posición
-            actual=actual.siguiente; //El nodo "actual" pasa al siguiente elemento a él
-            contador++; //El contador se incrementa uno
+        ElementoSE<T>actual=primero; // Empezamos desde el primer elemento
+        int contador=0;              // Inicializamos el contador
+        while (contador<posición){
+            actual=actual.siguiente; // Avanzamos al siguiente elemento
+            contador++;              // Incrementamos el contador
         }
-        return actual.dato; //Devolvemos el dato
+        return actual.dato; // Devolvemos el dato en la posición indicada
     }
+    /** Inserta un dato en una posición dada.*/
     public T insertAt(int posición, T dato){
         if (posición>tamaño || posición<0){
-            return null;
+            return null; // La posición está fuera del rango válido
         }
         if (posición==0){
+            // Insertamos al inicio
             ElementoSE<T> nuevo=new ElementoSE<>(dato);
-            nuevo.siguiente=primero;
-            primero=nuevo;
+            nuevo.siguiente=primero; // El nuevo apunta al que era el primero
+            primero=nuevo;           // El nuevo pasa a ser el primero
             tamaño++;
             return dato;
         }
         if (posición==tamaño){
-            add(dato);
+            add(dato); // Insertamos al final reutilizando add
             return dato;
         }
-        ElementoSE<T> anterior=primero;
+        ElementoSE<T> anterior=primero; // Empezamos desde el primer elemento
         int contador=0;
         while (contador<posición-1){
-            anterior=anterior.siguiente;
+            anterior=anterior.siguiente; // Avanzamos hasta el elemento anterior a la posición
             contador++;
         }
         ElementoSE<T>nuevo=new ElementoSE<>(dato);
-        nuevo.siguiente=anterior.siguiente;
-        anterior.siguiente=nuevo;
-        tamaño++;
+        nuevo.siguiente=anterior.siguiente; // El nuevo apunta al elemento que estaba en esa posición
+        anterior.siguiente=nuevo;           // El anterior apunta al nuevo elemento
+        tamaño++;                           // Incrementamos el tamaño
         return dato;
     }
-
+    /** Elimina y devuelve el dato en una posición dada.*/
     public T removeAt(int posición){
-        if (posición<0 ||posición>=tamaño){
-            return null;
+        if (posición<0 || posición>=tamaño){
+            return null; // La posición está fuera del rango válido
         }
         if (posición==0){
-            ElementoSE<T>actual=primero;
-            primero=actual.siguiente;
-            tamaño--;
+            // Eliminamos el primer elemento
+            ElementoSE<T>actual=primero;  // Guardamos el primero para devolverlo
+            primero=actual.siguiente;     // El segundo elemento pasa a ser el primero
+            tamaño--;                     // Decrementamos el tamaño
             return actual.dato;
         }
-        ElementoSE<T>anterior=primero;
+        ElementoSE<T>anterior=primero; // Empezamos desde el primer elemento
         int contador=0;
         while (contador<posición-1){
-            anterior=anterior.siguiente;
+            anterior=anterior.siguiente; // Avanzamos hasta el elemento anterior a la posición
             contador++;
         }
-        ElementoSE<T>borrar=anterior.siguiente;
-        anterior.siguiente=borrar.siguiente;
-        tamaño--;
+        ElementoSE<T>borrar=anterior.siguiente; // Guardamos el elemento a eliminar
+        anterior.siguiente=borrar.siguiente;    // El anterior apunta al siguiente del eliminado
+        tamaño--;                               // Decrementamos el tamaño
         return borrar.dato;
     }
+    /** Devuelve una representación en texto de la lista.*/
     @Override
     public String toString() {
-        if (tamaño == 0) return "[]";
-
+        if (tamaño == 0) return "[]"; // Si la lista está vacía devolvemos []
         String resultado = "[";
-        ElementoSE<T> actual = primero;  // ← ElementoSE (Simple)
-
+        ElementoSE<T> actual = primero; // Empezamos desde el primer elemento
         while (actual != null) {
-            resultado = resultado + actual.dato;
-            actual = actual.siguiente;
+            resultado = resultado + actual.dato; // Añadimos el dato al resultado
+            actual = actual.siguiente;           // Avanzamos al siguiente elemento
             if (actual != null) {
-                resultado = resultado + ", ";
+                resultado = resultado + ", "; // Añadimos separador si no es el último
             }
         }
         resultado = resultado + "]";
         return resultado;
     }
-
 }
