@@ -56,8 +56,8 @@ public class ColaPrioridadMax<T extends Comparable<T>> {
         return lista.toString(); // Delegamos en la LDEOrdenada
     }
     /** Comprueba si un dato existe en la cola.*/
-    public T contains(T dato){
-        return lista.get(dato); // Buscamos el dato en la LDEOrdenada
+    public boolean contains(T dato){
+        return lista.get(dato)!=null; // Buscamos el dato en la LDEOrdenada
     }
     /**
      * Reemplaza un dato existente por uno nuevo manteniendo el orden.

@@ -9,7 +9,7 @@ class ColaPrioridadMax <T extends Comparable <T>>{
     + peekMin():T
     + dequeueMin():T
     + toString():String
-    + contains(dato:T):T
+    + contains(dato:T):boolean
     + replace(datoviejo:T,datonuevo:T)
 }
 class ColaPrioridadMin <T extends Comparable <T>>{
@@ -21,7 +21,7 @@ class ColaPrioridadMin <T extends Comparable <T>>{
     + clear():void
     + peekMin():T
     + toString():String
-    + contains(dato:T):T
+    + contains(dato:T):boolean
     + replace(datoviejo:T,datonuevo:T)
 }
 note as ColaPrioridad
