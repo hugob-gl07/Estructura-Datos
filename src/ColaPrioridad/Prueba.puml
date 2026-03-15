@@ -1,0 +1,82 @@
+@startuml
+@startuml
+
+left to right direction
+
+class ColaPrioridadMax<T extends Comparable<T>> {
+    + enqueue(dato:T):void
+    + dequeue():T
+    + peekMax():T
+    + peekMin():T
+    + dequeueMin():T
+    + isEmpty():boolean
+    + size():int
+    + clear():void
+    + contains(dato:T):boolean
+    + replace(datoViejo:T, datoNuevo:T):void
+    + toString():String
+}
+
+class ColaPrioridadMin<T extends Comparable<T>> {
+    + enqueue(dato:T):void
+    + dequeue():T
+    + peekMin():T
+    + peekMax():T
+    + dequeueMax():T
+    + isEmpty():boolean
+    + size():int
+    + clear():void
+    + contains(dato:T):boolean
+    + replace(datoViejo:T, datoNuevo:T):void
+    + toString():String
+}
+
+note right of ColaPrioridadMax::enqueue
+**INSERTA MANTENIENDO EL ORDEN**
+end note
+
+note left of ColaPrioridadMax::dequeue
+**ELIMINA Y DEVUELVE ELEMENTO CON MAYOR PRIORIDAD**
+end note
+
+note right of ColaPrioridadMax::peekMax
+**DEVUELVE ELEMENTO CON MAYOR PRIORIDAD**
+end note
+
+note left of ColaPrioridadMax::peekMin
+**DEVUELVE ELEMENTO CON MENOR PRIORIDAD**
+end note
+
+note right of ColaPrioridadMax::dequeueMin
+**ELIMINA Y DEVUELVE ELEMENTO CON MENOR PRIORIDAD**
+end note
+
+note left of ColaPrioridadMax::isEmpty
+**DEVUELVE TRUE SI COLA VACÍA, FALSE SI NO**
+end note
+
+note right of ColaPrioridadMax::size
+**DEVUELVE NÚMERO DE ELEMENTOS**
+end note
+
+note left of ColaPrioridadMax::clear
+**VACÍA LA COLA DE ELEMENTOS**
+end note
+
+note right of ColaPrioridadMax::contains
+**COMPRUEBA SI EXISTE UN ELEMENTO**
+end note
+
+note left of ColaPrioridadMax::replace
+**REEMPLAZA UN ELEMENTO MANTENIENDO EL ORDEN**
+end note
+
+note right of ColaPrioridadMin::enqueue
+**INSERTA MANTENIENDO EL ORDEN**
+end note
+
+note left of ColaPrioridadMin::dequeue
+**ELIMINA Y DEVUELVE ELEMENTO CON MENOR PRIORIDAD**
+end note
+
+@enduml
