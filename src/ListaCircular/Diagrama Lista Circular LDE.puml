@@ -1,0 +1,78 @@
+@startuml
+class ListaCircularDE {
+    # primero: ElementoDE <T>
+    # ultimo: ElementoDE <T>
+    # tamaño: int
+    + ListaCircularDE()
+    + add(dato:T):void
+    + get(dato:T):T
+    + del(dato:T):T
+    + isEmpty():boolean
+    + getSize():int
+    + getIterador(): MiIterador <T>
+    + vaciar():void
+    + existe(dato:T):boolean
+    + obtenerPorPosicion(puesto:int):T
+    + cambiarEnPosicion(puesto:int, nuevoDato:T):void
+    + mostrarLista():String
+}
+class ElementoDE {
+    # dato:T
+    # siguiente: ElementoDE <T>
+    # anterior: ElementoDE <T>
+    + ElementoDE(dato:T)
+}
+interface Lista {
+    + add(dato:T):void
+    + get(dato:T):void
+    + del (dato:T):void
+    + isEmpty():boolean
+    + getSize():int
+    + getIterador():MiIterador <T>
+    + vaciar():void
+    + existe()(dato:T):boolean
+    + obtenerPorPosicion(puesto:int):T
+    + cambiarEnPosicion(puesto:int, nuevoDato:T):void
+    + ,mostrarLista():String
+    }
+class IteradorCircular {
+    + IteradorCircular(primero:ElementoDE <T>, tamaño:int)
+    + hasNext():boolean
+    + next():T
+}
+interface MiIterador {
+    + hasNext():boolean
+    + next():T
+    }
+note right of ListaCircularDE::add
+    *Inserta al final*
+    cerrando el ciclo
+end note
+
+note right of ListaCircularDE::del
+    *Elimina por valor*
+    reenlazando el ciclo
+end note
+
+note right of ListaCircularDE::existe
+    *Recorre una vuelta*
+    usando tamaño como límite
+end note
+
+note left of ListaCircularDE::obtenerPorPosicion
+    *Acceso por índice*
+end note
+
+note left of ListaCircularDE::cambiarEnPosicion
+    *Modifica por índice*
+end note
+
+note left of ListaCircularDE::mostrarLista
+    *Muestra la lista*
+    con formato circular doble
+end note
+
+ListaCircularDE ...|> Lista: implements
+IteradorCircular ..|> MiIterador: implements
+ListaCircularDE *-- ElementoDE : composición
+@enduml

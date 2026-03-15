@@ -1,4 +1,4 @@
-@startuml
+ @startuml
 class IteradorLDE<T>{
     - actual:ElementoDE<T>
     + public IteradorLDE(ElementoDE<T> inicio)
@@ -27,6 +27,13 @@ class ListaDoblementeEnlazada <T extends Comparable<T>>{
     + getIterador():Iterador<T>
     + addFirst(dato:T):T
     + add(dato:T):T
+    + getSize():int
+    + getFirst():T
+    + getLast():T
+    + clear():T
+    + removeFirst():T
+    + removeLast():T
+    + toString():String
 }
 LDEOrdenada -down-|> ListaDoblementeEnlazada : extends
 IteradorLDE .up.|> Iterador : implements
@@ -65,4 +72,27 @@ note left of ListaDoblementeEnlazada::add
 **INSERTA AL FINAL**
 end note
 
+note right of ListaDoblementeEnlazada::getSize
+**DEVUELVE TAMAÑO LISTA**
+end note
+
+note left of ListaDoblementeEnlazada::getFirst
+**DEVUELVE PRIMER ELEMENTO DE LA LISTA**
+end note
+
+note right of ListaDoblementeEnlazada::clear
+**VACIA LA LISTA COMPLETA**
+end note
+
+note left of ListaDoblementeEnlazada::removeFirst
+**ELIMINA Y DEVUELVE PRIMER ELEMENTO**
+end note
+
+note right of ListaDoblementeEnlazada::removeLast
+**ELIMINA Y DEVUELVE ÚLTIMO ELEMENTO**
+end note
+
+note left of ListaDoblementeEnlazada::toString
+**REPRESENTACIÓN DE LA LISTA**
+end note
 @enduml

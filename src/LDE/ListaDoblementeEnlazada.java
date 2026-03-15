@@ -119,8 +119,7 @@ public class ListaDoblementeEnlazada<T extends Comparable<T>> {
 
     /**
      * Inserta un dato en una posición dada.
-     * Busca desde el extremo más cercano para optimizar O(n/2).
-     */
+     * Busca desde el extremo más cercano para optimizar O(n/2).     */
     public T insertAt(int posicion, T dato){
         if (posicion<0 || posicion>tamaño){
             return null; // La posición está fuera del rango válido
