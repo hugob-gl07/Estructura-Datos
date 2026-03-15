@@ -95,4 +95,5 @@ end note
 note left of ListaDoblementeEnlazada::toString
 **REPRESENTACIÓN DE LA LISTA**
 end note
+
 @enduml
