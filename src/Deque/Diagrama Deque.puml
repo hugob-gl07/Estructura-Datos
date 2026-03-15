@@ -1,0 +1,73 @@
+@startuml
+class Deque <T extends Comparable <T>>{
+    + addFirst(dato:T):void
+    + addLast(dato:T):void
+    + removeFirst():T
+    + removeLast():T
+    + peekFirst():T
+    + peekLast():T
+    + isEmpty():boolean
+    + size():int
+    + clear():void
+    + contains(dato:T):boolean
+    + toString():String
+}
+class LDEOrdenada <T extends Comparable <T>>{
+    + get(dato:T):T
+    + addFirst(dato:T):T
+    + add(dato:T):T
+    + getSize():int
+    + getFirst():T
+    + getLast():T
+    + clear():void
+    + removeFirst():T
+    + removeLast():T
+    + toString():String
+    + isEmpty():boolean
+}
+Deque *-- LDEOrdenada : usa
+
+note right of Deque::addFirst
+**INSERTA AL INICIO**
+end note
+
+note left of Deque::addLast
+**INSERTA AL FINAL**
+end note
+
+note right of Deque::removeFirst
+**ELIMINA Y DEVUELVE EL PRIMERO**
+end note
+
+note left of Deque::removeLast
+**ELIMINA Y DEVUELVE EL ÚLTIMO**
+end note
+
+note right of Deque::peekFirst
+**DEVUELVE EL PRIMERO SIN ELIMINAR**
+end note
+
+note left of Deque::peekLast
+**DEVUELVE EL ÚLTIMO SIN ELIMINAR**
+end note
+
+note right of Deque::isEmpty
+**DEVUELVE TRUE SI VACÍO, FALSE SI NO**
+end note
+
+note left of Deque::size
+**DEVUELVE EL NÚMERO DE ELEMENTOS**
+end note
+
+note right of Deque::clear
+**VACÍA EL DEQUE**
+end note
+
+note left of Deque::contains
+**COMPRUEBA SI EXISTE UN ELEMENTO**
+end note
+
+note right of Deque::toString
+**REPRESENTACIÓN EN TEXTO**
+end note
+@enduml

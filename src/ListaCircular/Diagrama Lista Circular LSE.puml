@@ -1,14 +1,14 @@
 @startuml
-class IteradorCircularSE {
+class IteradorCircularSE <T> {
     + IteradorCircularSE(primero:ElementoSE <T>, tamaño:int)
     + hasNext():boolean
     + next():T
 }
-interface MiIterador {
+interface MiIterador <T> {
     + hasNext():boolean
     + next():T
 }
-class ListaCircularSE {
+class ListaCircularSE <T extends Comparable<T>> {
     # primero:ElementoSE <T>
     # ultimo:ElementoSE <T>
     # tamaño:int
@@ -25,7 +25,7 @@ class ListaCircularSE {
     + cambiarEnPosicion(puesto:int,nuevoDato:T):void
     + mostrarLista():String
 }
-interface Lista {
+interface Lista <T extends Comparable<T>> {
     + add(dato:T):void
     + get(dato:T):void
     + del (dato:T):void
@@ -36,9 +36,9 @@ interface Lista {
     + existe()(dato:T):boolean
     + obtenerPorPosicion(puesto:int):T
     + cambiarEnPosicion(puesto:int, nuevoDato:T):void
-    + ,mostrarLista():String
+    + mostrarLista():String
     }
-class ElementoSE {
+class ElementoSE <T> {
     # dato:T
     # siguiente: ElementoSE <T>
     + ElementoSE(dato:T)

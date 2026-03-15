@@ -1,5 +1,5 @@
 @startuml
-class ListaCircularDE {
+class ListaCircularDE <T extends Comparable <T>>{
     # primero: ElementoDE <T>
     # ultimo: ElementoDE <T>
     # tamaño: int
@@ -16,13 +16,13 @@ class ListaCircularDE {
     + cambiarEnPosicion(puesto:int, nuevoDato:T):void
     + mostrarLista():String
 }
-class ElementoDE {
+class ElementoDE <T> {
     # dato:T
     # siguiente: ElementoDE <T>
     # anterior: ElementoDE <T>
     + ElementoDE(dato:T)
 }
-interface Lista {
+interface Lista <T> {
     + add(dato:T):void
     + get(dato:T):void
     + del (dato:T):void
@@ -35,12 +35,12 @@ interface Lista {
     + cambiarEnPosicion(puesto:int, nuevoDato:T):void
     + ,mostrarLista():String
     }
-class IteradorCircular {
+class IteradorCircular <T> {
     + IteradorCircular(primero:ElementoDE <T>, tamaño:int)
     + hasNext():boolean
     + next():T
 }
-interface MiIterador {
+interface MiIterador <T> {
     + hasNext():boolean
     + next():T
     }

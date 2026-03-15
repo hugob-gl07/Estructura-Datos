@@ -24,6 +24,7 @@ class ListaDoblementeEnlazada <T extends Comparable<T>>{
     + insertAt(posición:int, dato:T):T
     + removeAt(posición:int):T
     + del(dato:T):T
+    + isEmpty():boolean
     + getIterador():Iterador<T>
     + addFirst(dato:T):T
     + add(dato:T):T
@@ -39,6 +40,10 @@ LDEOrdenada -down-|> ListaDoblementeEnlazada : extends
 IteradorLDE .up.|> Iterador : implements
 ListaDoblementeEnlazada *--* ElementoDE : composición
 ListaDoblementeEnlazada ..> Iterador : retorna
+
+note right of ListaDoblementeEnlazada::isEmpty
+**DEVUELVE TRUE SI ESTA VACIA, FALSE SI NO**
+end note
 
 note right of ListaDoblementeEnlazada::get
 **BUSCA POR VALOR**
