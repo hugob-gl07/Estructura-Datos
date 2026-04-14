@@ -3,7 +3,7 @@ package PILA.COLA.LISTACIRCULAR;
  * Representa un nodo genérico usado por las estructuras de datos.
  * Contiene un dato y un puntero al elemento siguiente.
  */
-public class Elemento<T extends Comparable<T>> {
+public class Elemento<T> {
     private T dato;                  // Dato almacenado en el nodo
     private Elemento<T> siguiente;   // Puntero al siguiente nodo
 

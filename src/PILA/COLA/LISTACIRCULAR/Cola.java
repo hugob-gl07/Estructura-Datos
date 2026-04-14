@@ -3,7 +3,7 @@ package PILA.COLA.LISTACIRCULAR;
  * Representa una cola (FIFO) genérica.
  * El primer elemento en entrar es el primero en salir.
  */
-public class Cola<T extends Comparable<T>> {
+public class Cola<T>{
     private Elemento<T> cabeza; // Puntero al primer elemento de la cola
     private Elemento<T> cola;   // Puntero al último elemento de la cola
 
