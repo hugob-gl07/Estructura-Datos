@@ -14,7 +14,7 @@ public class Pila<T extends Comparable<T>> {
     /** Elimina y devuelve el dato de la cima de la pila (LIFO).*/
     public T pop(){
         if(cabeza==null){
-            return null; // Si la pila está vacía devolvemos null
+            throw new PilaVaciaExceptions("Error: La pila esta vacía, no podemos eliminar ningún dato") ; // Si la pila está vacía devolvemos null
         }
         T dato= cabeza.getDato();        // Guardamos el dato de la cima para devolverlo
         cabeza=cabeza.getSiguiente();    // El siguiente elemento pasa a ser la nueva cima
@@ -24,7 +24,7 @@ public class Pila<T extends Comparable<T>> {
     /** Devuelve el dato de la cima de la pila sin eliminarlo. */
     public T peek(){
         if (cabeza==null){
-            return null; // Si la pila está vacía devolvemos null
+            throw new PilaVaciaExceptions("Error: La pila esta vacía, por lo tanto no puedo devolver el dato cima"); // Si la pila está vacía devolvemos null
         }
         return cabeza.getDato(); // Devolvemos el dato de la cima sin eliminarlo
     }
