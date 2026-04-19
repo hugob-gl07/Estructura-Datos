@@ -23,7 +23,7 @@ public class Cola<T>{
     /** Elimina y devuelve el primer dato de la cola (FIFO).*/
     public T dequeue(){
         if (cabeza==null){
-            return null; // Si la cola está vacía devolvemos null
+            throw new ColaVaciaExceptions("Error: La cola esta vacía: No podemos eliminar el primer dato de la cola"); // Si la cola está vacía lanzamos el error
         }
         T dato= cabeza.getDato();        // Guardamos el dato de la cabeza para devolverlo
         cabeza=cabeza.getSiguiente();    // El segundo elemento pasa a ser la nueva cabeza
@@ -35,7 +35,7 @@ public class Cola<T>{
     /** Devuelve el primer dato de la cola sin eliminarlo.*/
     public T peek(){
         if (cabeza==null){
-            return null; // Si la cola está vacía devolvemos null
+            throw new ColaVaciaExceptions("Error: La cola esta vacía: No podemos devolver el primer dato de la cola"); // Si la cola está vacía lanzamos el error
         }
         return cabeza.getDato(); // Devolvemos el dato de la cabeza sin eliminarlo
     }
