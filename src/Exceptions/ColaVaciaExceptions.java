@@ -1,6 +1,6 @@
-package PILA.COLA.LISTACIRCULAR;
+package Exceptions;
 
-public class ColaVaciaExceptions extends RuntimeException {
+public class ColaVaciaExceptions extends EstructuraVaciasException {
     public ColaVaciaExceptions(){
         super("La cola esta vacia");
     }

@@ -1,4 +1,7 @@
 package PILA.COLA.LISTACIRCULAR;
+
+import Exceptions.ListaCircularExceptions;
+
 /**
  * Representa una lista circular genérica.
  * El último elemento apunta de vuelta al primero formando un ciclo.
@@ -26,7 +29,7 @@ public class ListaCircular<T extends Comparable<T>> {
     /** Elimina y devuelve el primer dato de la lista circular.*/
     public T eliminar(){
         if(cabeza==null){
-            return null; // Si la lista está vacía devolvemos null
+            throw  new ListaCircularExceptions("Error: La lista circular esta vacía, no podemos eliminar ni devolver el dato"); // Si la lista está vacía lanzamos el error
         }
         T dato=cabeza.getDato(); // Guardamos el dato de la cabeza para devolverlo
         if(cabeza.getSiguiente()==cabeza){

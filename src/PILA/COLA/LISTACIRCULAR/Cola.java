@@ -1,4 +1,7 @@
 package PILA.COLA.LISTACIRCULAR;
+
+import Exceptions.ColaVaciaExceptions;
+
 /**
  * Representa una cola (FIFO) genérica.
  * El primer elemento en entrar es el primero en salir.

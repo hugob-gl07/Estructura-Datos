@@ -1,4 +1,7 @@
 package PILA.COLA.LISTACIRCULAR;
+
+import Exceptions.PilaVaciaExceptions;
+
 /**
  * Representa una pila (LIFO) genérica.
  * El último elemento en entrar es el primero en salir.*/
