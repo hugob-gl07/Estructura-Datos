@@ -34,3 +34,4 @@ public class Pila<T extends Comparable<T>> {
         return cabeza==null; // Si la cabeza es null la pila está vacía
     }
 }
+
