@@ -1,4 +1,7 @@
 package LSE;
+import Exceptions.ListaIndiceInvalidoExceptions;
+import Exceptions.ListaVaciaExceptions;
+
 /**
  * Representa una lista simplemente enlazada genérica y ordenable.
  * @param <T> tipo de dato que debe ser Comparable
@@ -52,7 +55,7 @@ public class ListaSimplementeEnlazada<T extends Comparable<T>> {
     /** Busca y elimina un dato por valor.*/
     public T del(T dato){
         if(primero==null){
-            return null; // Si la lista está vacía devolvemos null
+            throw new ListaVaciaExceptions("Error: La Lista Simplemente Enlazada está vacía, no podemos eliminar el dato buscado"); // Si La Lista Simplemente Enlazada está vacia, lanzamos el error
         }
         if (primero.dato.compareTo(dato)==0){
             // Si el dato a eliminar es el primero
@@ -76,7 +79,7 @@ public class ListaSimplementeEnlazada<T extends Comparable<T>> {
             anterior=actual;           // Anterior avanza al actual
             actual=actual.siguiente;   // Actual avanza al siguiente
         }
-        return null; // Si no encontramos el dato devolvemos null
+        throw new ListaVaciaExceptions("Error: La Lista Simplemente Enlazada está vacía, no podemos eliminar el dato buscado"); // Si La Lista Simplemente Enlazada está vacia, lanzamos el error
     }
     /** Devuelve true si la lista está vacía, false si no.*/
     public boolean isEmpty(){
@@ -93,7 +96,7 @@ public class ListaSimplementeEnlazada<T extends Comparable<T>> {
     /** Devuelve el dato en una posición dada.*/
     public T getAt(int posición){
         if (posición>=tamaño || posición<0){
-            return null; // La posición está fuera del rango válido
+            throw new ListaIndiceInvalidoExceptions("Error: Estas intentado acceder a una posición fuera del rango "); // Si intentamos acceder fuera del rango de la LSE , lanzamos el error
         }
         ElementoSE<T>actual=primero; // Empezamos desde el primer elemento
         int contador=0;              // Inicializamos el contador
@@ -106,7 +109,7 @@ public class ListaSimplementeEnlazada<T extends Comparable<T>> {
     /** Inserta un dato en una posición dada.*/
     public T insertAt(int posición, T dato){
         if (posición>tamaño || posición<0){
-            return null; // La posición está fuera del rango válido
+            throw new ListaIndiceInvalidoExceptions("Error: Estas intentado acceder a una posición fuera del rango "); // Si intentamos acceder fuera del rango de la LSE , lanzamos el error
         }
         if (posición==0){
             // Insertamos al inicio
@@ -135,7 +138,7 @@ public class ListaSimplementeEnlazada<T extends Comparable<T>> {
     /** Elimina y devuelve el dato en una posición dada.*/
     public T removeAt(int posición){
         if (posición<0 || posición>=tamaño){
-            return null; // La posición está fuera del rango válido
+            throw new ListaIndiceInvalidoExceptions("Error: Estas intentado acceder a una posición fuera del rango "); // Si intentamos acceder fuera del rango de la LSE , lanzamos el error
         }
         if (posición==0){
             // Eliminamos el primer elemento

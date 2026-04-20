@@ -1,4 +1,5 @@
-package PILA.COLA.LISTACIRCULAR;
+package Colas.Cola;
+
 public class TestCola {
     public static void main(String[] args) {
 
@@ -16,7 +17,7 @@ public class TestCola {
         impresora.enqueue("Factura_Marzo.pdf");
         impresora.enqueue("Curriculum.pdf");
         System.out.println("Primer trabajo en cola: " + impresora.peek());
-        System.out.println("¿Cola vacía? " + impresora.isEmpty());
+        System.out.println("¿Colas.Cola vacía? " + impresora.isEmpty());
 
         // -------------------------------------------------------
         // Imprimimos los dos primeros trabajos
@@ -40,6 +41,6 @@ public class TestCola {
         while (!impresora.isEmpty()) {
             System.out.println("Imprimiendo: " + impresora.dequeue());
         }
-        System.out.println("¿Cola vacía? " + impresora.isEmpty());
+        System.out.println("¿Colas.Cola vacía? " + impresora.isEmpty());
     }
 }

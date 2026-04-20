@@ -1,4 +1,5 @@
-package ColaPrioridad;
+package Colas.ColaPrioridad;
+import Exceptions.ColaPrioridadVaciaExceptions;
 import LDE.LDEOrdenada;
 /**
  * Representa una cola de prioridad máxima genérica.
@@ -13,14 +14,14 @@ public class ColaPrioridadMax<T extends Comparable<T>> {
     /** Elimina y devuelve el elemento con mayor prioridad.*/
     public T dequeue(){
         if(lista.isEmpty()){
-            throw new IllegalStateException("No se puede hacer dequeu: la cola de prioridad está vacia "); // Lanzamos la excepción porque el estado es incorrecto
+            throw new ColaPrioridadVaciaExceptions("Error: la cola de prioridad está vacia, no podemos eliminar ni devolver el elemento con mayor prioridad ");// Si la cola esta vacía, lanzamos el error
         }
         return lista.removeLast(); // El elemento de mayor prioridad está al final
     }
     /** Devuelve el elemento con mayor prioridad sin eliminarlo.*/
     public T peekMax(){
         if(lista.isEmpty()){
-            throw new IllegalStateException("No se puede hacer peek: la cola de prioridad está vacia "); // Lanzamos la excepción porque el estado es incorrecto
+            throw new ColaPrioridadVaciaExceptions("Error: la cola de prioridad está vacia, no podemos devolver el elemento con mayor prioridad ");// Si la cola esta vacía, lanzamos el error
         }
         return lista.getLast(); // El elemento de mayor prioridad está al final
     }
@@ -40,14 +41,14 @@ public class ColaPrioridadMax<T extends Comparable<T>> {
     /** Devuelve el elemento con menor prioridad sin eliminarlo.*/
     public T peekMin(){
         if(lista.isEmpty()){
-            throw new IllegalStateException("No se puede hacer peek: la cola de prioridad está vacia "); // Lanzamos la excepción porque el estado es incorrecto
+            throw new ColaPrioridadVaciaExceptions("Error: la cola de prioridad está vacia, no podemos eliminar ni devolver el elemento con menor prioridad ");// Si la cola esta vacía, lanzamos el error
         }
         return lista.getFirst(); // El elemento de menor prioridad está al inicio
     }
     /** Elimina y devuelve el elemento con menor prioridad.*/
     public T dequeueMin(){
         if(lista.isEmpty()){
-            throw new IllegalStateException("No se puede hacer dequeuMin: la cola de prioridad está vacia "); // Lanzamos la excepción porque el estado es incorrecto
+            throw new ColaPrioridadVaciaExceptions("Error: la cola de prioridad está vacia, no podemos eliminar ni devolver el elemento con menor prioridad ");// Si la cola esta vacía, lanzamos el error
         }
         return lista.removeFirst(); // El elemento de menor prioridad está al inicio
     }

@@ -5,7 +5,7 @@ package LSE;
  */
 public class IteradorLSE<T> implements Iterador<T> {
 
-    private ElementoSE<T> actual; // Elemento actual en el recorrido
+    private ElementoSE<T> actual; // Elemento.Elemento actual en el recorrido
     /** Constructor con el elemento de inicio del recorrido.*/
     public IteradorLSE(ElementoSE<T> inicio){
         this.actual=inicio; // Inicializamos el iterador en el primer elemento

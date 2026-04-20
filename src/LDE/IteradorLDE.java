@@ -5,7 +5,7 @@ package LDE;
  */
 public class IteradorLDE<T> implements Iterador<T> {
 
-    private ElementoDE<T> actual; // Elemento actual en el recorrido
+    private ElementoDE<T> actual; // Elemento.Elemento actual en el recorrido
 
     /** Constructor con el elemento de inicio del recorrido.*/
     public IteradorLDE(ElementoDE<T> inicio) {

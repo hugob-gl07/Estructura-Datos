@@ -1,8 +1,9 @@
-package ColaPrioridad;
+package Colas.ColaPrioridad;
 /**
  * Representa una cola de prioridad mínima genérica.
  * Los elementos se ordenan internamente usando una LDEOrdenada, de forma que el elemento con menor prioridad siempre está al inicio.
  */
+import Exceptions.ColaPrioridadVaciaExceptions;
 import LDE.LDEOrdenada;
 public class ColaPrioridadMin <T extends Comparable<T>> {
     private LDEOrdenada<T> lista=new LDEOrdenada<>(); // Lista ordenada interna que gestiona la prioridad
@@ -13,14 +14,14 @@ public class ColaPrioridadMin <T extends Comparable<T>> {
     /** Elimina y devuelve el elemento con menor prioridad.*/
     public T dequeue(){
         if(lista.isEmpty()){
-            return null; // Si la cola está vacía devolvemos null
+            throw new ColaPrioridadVaciaExceptions("Error: la cola de prioridad está vacia, no podemos eliminar ni devolver el elemento con menor prioridad ");// Si la cola esta vacía, lanzamos el error
         }
         return lista.removeFirst(); // El elemento de menor prioridad está al principio
     }
     /** Devuelve el elemento con mayor prioridad sin eliminarlo.*/
     public T peekMax(){
         if(lista.isEmpty()){
-            return null; // Si la cola está vacía devolvemos null
+            throw new ColaPrioridadVaciaExceptions("Error: la cola de prioridad está vacia, no podemos devolver el elemento con mayor prioridad ");// Si la cola esta vacía, lanzamos el error
         }
         return lista.getLast(); // El elemento de mayor prioridad está al final
     }
@@ -40,7 +41,7 @@ public class ColaPrioridadMin <T extends Comparable<T>> {
     /** Devuelve el elemento con menor prioridad sin eliminarlo.*/
     public T peekMin(){
         if(lista.isEmpty()){
-            return null; // Si la cola está vacía devolvemos null
+            throw new ColaPrioridadVaciaExceptions("Error: la cola de prioridad está vacia, no podemos devolver el elemento con menor prioridad ");// Si la cola esta vacía, lanzamos el error
         }
         return lista.getFirst(); // El elemento de menor prioridad está al inicio
     }

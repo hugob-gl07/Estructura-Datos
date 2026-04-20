@@ -1,4 +1,8 @@
 package LDE;
+
+import Exceptions.ListaIndiceInvalidoExceptions;
+import Exceptions.ListaVaciaExceptions;
+
 /**
  * Representa una lista doblemente enlazada genérica y ordenable.
  * @param <T> tipo de dato que debe ser Comparable
@@ -61,7 +65,7 @@ public class ListaDoblementeEnlazada<T extends Comparable<T>> {
             actual=actual.siguiente; // Avanzamos hasta encontrar el dato
         }
         if (actual==null){
-            return null; // Si no encontramos el dato devolvemos null
+            throw new ListaVaciaExceptions("Error: La Lista Doblemente Enlazada está vacía, no podemos eliminar el dato buscado"); // Si La Lista Doblemente Enlazada está vacia, lanzamos el error
         }
         if (actual==primero){  // Si el elemento a eliminar es el primero
             primero=actual.siguiente; // El segundo elemento pasa a ser el primero
@@ -88,14 +92,13 @@ public class ListaDoblementeEnlazada<T extends Comparable<T>> {
         tamaño--;  // Decrementamos el tamaño
         return actual.dato; // Devolvemos el dato actual
     }
-
     /**
      * Devuelve el dato en una posición dada.
      * Busca desde el extremo más cercano para optimizar O(n/2).
      */
     public T getAt(int posicion){
         if(posicion<0||posicion>=tamaño){
-            return null;
+            throw new ListaIndiceInvalidoExceptions("Error: Estas intentado acceder a una posición fuera del rango "); // Si intentamos acceder fuera del rango de la LDE , lanzamos el error
         }
         ElementoDE<T>actual=null;
         if (posicion<tamaño/2){
@@ -122,7 +125,7 @@ public class ListaDoblementeEnlazada<T extends Comparable<T>> {
      * Busca desde el extremo más cercano para optimizar O(n/2).     */
     public T insertAt(int posicion, T dato){
         if (posicion<0 || posicion>tamaño){
-            return null; // La posición está fuera del rango válido
+            throw new ListaIndiceInvalidoExceptions("Error: Estas intentado acceder a una posición fuera del rango "); // Si intentamos acceder fuera del rango de la LDE , lanzamos el error
         }
         if (posicion==0){
             return addFirst(dato); // Insertamos al inicio reutilizando addFirst
@@ -162,7 +165,8 @@ public class ListaDoblementeEnlazada<T extends Comparable<T>> {
      */
     public T removeAt(int posicion) {
         if (posicion < 0 || posicion >= tamaño) {
-            return null; // La posición está fuera del rango válido
+            throw new ListaIndiceInvalidoExceptions("Error: Estas intentado acceder a una posición fuera del rango "); // Si intentamos acceder fuera del rango de la LDE , lanzamos el error
+
         }
         ElementoDE<T> actual = null; // Creamos un elemento nuevo que apunte a null
         if (posicion < tamaño / 2) { // Si la posición está en la primera mitad buscamos desde el principio
@@ -223,15 +227,15 @@ public class ListaDoblementeEnlazada<T extends Comparable<T>> {
     }
     /** Devuelve el primer dato de la lista sin eliminarlo.*/
     public T getFirst(){
-        if(primero==null){ // Si el primero es igual a null
-            return null; // Devolvemos null
+        if(primero==null){
+            throw new ListaVaciaExceptions("Error: La Lista Doblemente Enlazada está vacía, no podemos devolver el primer elemento"); // Si La Lista Doblemente Enlazada está vacia, lanzamos el error
         }
         return primero.dato; // Devolvemos el dato del primer elemento directamente
     }
     /** Devuelve el último dato de la lista sin eliminarlo.*/
     public T getLast(){
         if(primero==null){
-            return null; // Si la lista está vacía devolvemos null
+            throw new ListaVaciaExceptions("Error: La Lista Doblemente Enlazada está vacía, no podemos devolver el último elemento"); // Si La Lista Doblemente Enlazada está vacia, lanzamos el error
         }
         return ultimo.dato; // Devolvemos el dato del último elemento directamente
     }
@@ -245,7 +249,7 @@ public class ListaDoblementeEnlazada<T extends Comparable<T>> {
     /** Elimina y devuelve el primer dato de la lista.*/
     public T removeFirst(){
         if(primero==null){
-            return null; // Si la lista está vacía devolvemos null
+            throw new ListaVaciaExceptions("Error: La Lista Doblemente Enlazada está vacía, no podemos eliminar el primer elemento"); // Si La Lista Doblemente Enlazada está vacia, lanzamos el error
         }
         ElementoDE<T>actual=primero;    // Guardamos el primero para devolverlo
         primero=primero.siguiente;       // El segundo elemento pasa a ser el primero
@@ -257,7 +261,8 @@ public class ListaDoblementeEnlazada<T extends Comparable<T>> {
     /** Elimina y devuelve el último dato de la lista.*/
     public T removeLast(){
         if(primero==null){
-            return null; // Si la lista está vacía devolvemos null
+            throw new ListaVaciaExceptions("Error: La Lista Doblemente Enlazada está vacía, no podemos eliminar el último elemento"); // Si La Lista Doblemente Enlazada está vacia, lanzamos el error
+
         }
         ElementoDE<T>actual=primero;
         if(primero.siguiente==null){
