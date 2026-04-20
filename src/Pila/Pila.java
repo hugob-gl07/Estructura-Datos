@@ -1,5 +1,5 @@
-package PILA.COLA.LISTACIRCULAR;
-
+package Pila;
+import Elemento.Elemento;
 import Exceptions.PilaVaciaExceptions;
 
 /**
@@ -10,7 +10,7 @@ public class Pila<T extends Comparable<T>> {
     private Elemento<T> cabeza; // Puntero al elemento en la cima de la pila
     /** Inserta un dato en la cima de la pila (LIFO).*/
     public void push(T dato){
-        Elemento<T>nuevo=new Elemento<>(dato); // Creamos un nuevo elemento con el dato
+        Elemento<T> nuevo=new Elemento<>(dato); // Creamos un nuevo elemento con el dato
         nuevo.setSiguiente(cabeza); // El nuevo elemento apunta al que era la cima
         cabeza=nuevo;               // El nuevo elemento pasa a ser la nueva cima
     }

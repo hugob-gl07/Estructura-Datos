@@ -1,4 +1,5 @@
-package PILA.COLA.LISTACIRCULAR;
+package Elemento;
+
 /**
  * Representa un nodo genérico usado por las estructuras de datos.
  * Contiene un dato y un puntero al elemento siguiente.

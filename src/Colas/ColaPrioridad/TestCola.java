@@ -1,4 +1,4 @@
-package ColaPrioridad;
+package Colas.ColaPrioridad;
 public class TestCola {
     public static void main(String[] args) {
 
@@ -18,7 +18,7 @@ public class TestCola {
         urgenciasMax.enqueue(1);  // Paciente con gravedad 1 (muy leve)
         urgenciasMax.enqueue(7);  // Paciente con gravedad 7 (grave)
         urgenciasMax.enqueue(5);  // Paciente con gravedad 5 (moderado)
-        System.out.println("Cola de urgencias: " + urgenciasMax);
+        System.out.println("Colas.Cola de urgencias: " + urgenciasMax);
         System.out.println("Número de pacientes en espera: " + urgenciasMax.size());
         System.out.println("Paciente más grave: " + urgenciasMax.peekMax());
         System.out.println("Paciente menos grave: " + urgenciasMax.peekMin());
@@ -27,7 +27,7 @@ public class TestCola {
         System.out.println("\nAtendiendo pacientes por orden de gravedad:");
         System.out.println("Atendiendo paciente con gravedad: " + urgenciasMax.dequeue());
         System.out.println("Atendiendo paciente con gravedad: " + urgenciasMax.dequeue());
-        System.out.println("Cola tras atender 2 pacientes: " + urgenciasMax);
+        System.out.println("Colas.Cola tras atender 2 pacientes: " + urgenciasMax);
 
         // Comprobamos si existe un paciente con gravedad 5
         System.out.println("\n¿Existe paciente con gravedad 5? " + urgenciasMax.contains(5));
@@ -36,16 +36,16 @@ public class TestCola {
         // Actualizamos la gravedad de un paciente
         System.out.println("\nActualizando gravedad del paciente 3 a 8...");
         urgenciasMax.replace(3, 8);
-        System.out.println("Cola tras actualizar: " + urgenciasMax);
+        System.out.println("Colas.Cola tras actualizar: " + urgenciasMax);
 
         // Atendemos al paciente menos grave directamente
         System.out.println("\nAtendiendo paciente menos grave directamente: " + urgenciasMax.dequeueMin());
-        System.out.println("Cola final: " + urgenciasMax);
+        System.out.println("Colas.Cola final: " + urgenciasMax);
 
         // Vaciamos la cola al cerrar el turno
         System.out.println("\nCerrando turno de urgencias...");
         urgenciasMax.clear();
-        System.out.println("¿Cola vacía? " + urgenciasMax.isEmpty());
+        System.out.println("¿Colas.Cola vacía? " + urgenciasMax.isEmpty());
 
         // -------------------------------------------------------
         // COLA DE PRIORIDAD MÍNIMA
@@ -61,7 +61,7 @@ public class TestCola {
         urgenciasMin.enqueue(2);  // Paciente con gravedad 2 (muy leve)
         urgenciasMin.enqueue(6);  // Paciente con gravedad 6 (moderado)
         urgenciasMin.enqueue(10); // Paciente con gravedad 10 (crítico)
-        System.out.println("Cola de urgencias: " + urgenciasMin);
+        System.out.println("Colas.Cola de urgencias: " + urgenciasMin);
         System.out.println("Número de pacientes en espera: " + urgenciasMin.size());
         System.out.println("Paciente menos grave: " + urgenciasMin.peekMin());
         System.out.println("Paciente más grave: " + urgenciasMin.peekMax());
@@ -70,7 +70,7 @@ public class TestCola {
         System.out.println("\nAtendiendo pacientes por orden de menor gravedad:");
         System.out.println("Atendiendo paciente con gravedad: " + urgenciasMin.dequeue());
         System.out.println("Atendiendo paciente con gravedad: " + urgenciasMin.dequeue());
-        System.out.println("Cola tras atender 2 pacientes: " + urgenciasMin);
+        System.out.println("Colas.Cola tras atender 2 pacientes: " + urgenciasMin);
 
         // Comprobamos si existe un paciente con gravedad 6
         System.out.println("\n¿Existe paciente con gravedad 6? " + urgenciasMin.contains(6));
@@ -79,11 +79,11 @@ public class TestCola {
         // Actualizamos la gravedad de un paciente
         System.out.println("\nActualizando gravedad del paciente 6 a 1...");
         urgenciasMin.replace(6, 1);
-        System.out.println("Cola tras actualizar: " + urgenciasMin);
+        System.out.println("Colas.Cola tras actualizar: " + urgenciasMin);
 
         // Vaciamos la cola al cerrar el turno
         System.out.println("\nCerrando turno de urgencias...");
         urgenciasMin.clear();
-        System.out.println("¿Cola vacía? " + urgenciasMin.isEmpty());
+        System.out.println("¿Colas.Cola vacía? " + urgenciasMin.isEmpty());
     }
 }

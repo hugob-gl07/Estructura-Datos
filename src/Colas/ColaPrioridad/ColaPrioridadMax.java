@@ -1,4 +1,4 @@
-package ColaPrioridad;
+package Colas.ColaPrioridad;
 import Exceptions.ColaPrioridadVaciaExceptions;
 import LDE.LDEOrdenada;
 /**

@@ -1,4 +1,4 @@
-package ColaPrioridad;
+package Colas.ColaPrioridad;
 /**
  * Representa una cola de prioridad mínima genérica.
  * Los elementos se ordenan internamente usando una LDEOrdenada, de forma que el elemento con menor prioridad siempre está al inicio.

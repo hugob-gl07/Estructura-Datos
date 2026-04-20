@@ -1,7 +1,6 @@
-package PILA.COLA.LISTACIRCULAR;
-
+package Colas.Cola;
+import Elemento.Elemento;
 import Exceptions.ColaVaciaExceptions;
-
 /**
  * Representa una cola (FIFO) genérica.
  * El primer elemento en entrar es el primero en salir.
@@ -12,7 +11,7 @@ public class Cola<T>{
 
     /** Inserta un dato al final de la cola (FIFO).*/
     public void enqueue(T dato){
-        Elemento<T>nuevo=new Elemento<>(dato); // Creamos un nuevo elemento con el dato
+        Elemento<T> nuevo=new Elemento<>(dato); // Creamos un nuevo elemento con el dato
         if (cabeza==null){
             // Si la cola está vacía el nuevo elemento es tanto la cabeza como la cola
             this.cabeza=nuevo;

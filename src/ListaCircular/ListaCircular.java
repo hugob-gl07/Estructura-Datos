@@ -1,5 +1,5 @@
-package PILA.COLA.LISTACIRCULAR;
-
+package ListaCircular;
+import Elemento.Elemento;
 import Exceptions.ListaCircularExceptions;
 
 /**
@@ -37,7 +37,7 @@ public class ListaCircular<T extends Comparable<T>> {
             cabeza=null;
         }
         else {
-            Elemento<T>nuevo=cabeza; // Empezamos desde la cabeza
+            Elemento<T> nuevo=cabeza; // Empezamos desde la cabeza
             while (nuevo.getSiguiente()!=cabeza){
                 nuevo=nuevo.getSiguiente(); // Avanzamos hasta llegar al último elemento
             }
