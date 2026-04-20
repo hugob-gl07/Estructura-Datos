@@ -1,4 +1,5 @@
 package LSE;
+import Exceptions.ListaElementoNoEncontradoException;
 import Exceptions.ListaIndiceInvalidoExceptions;
 import Exceptions.ListaVaciaExceptions;
 
@@ -50,7 +51,7 @@ public class ListaSimplementeEnlazada<T extends Comparable<T>> {
             }
             actual=actual.siguiente; // Avanzamos al siguiente elemento
         }
-        return null; // Si no encontramos el dato devolvemos null
+        return null; // Devolvemos null si no encontramos el dato en la lista
     }
     /** Busca y elimina un dato por valor.*/
     public T del(T dato){
@@ -79,7 +80,7 @@ public class ListaSimplementeEnlazada<T extends Comparable<T>> {
             anterior=actual;           // Anterior avanza al actual
             actual=actual.siguiente;   // Actual avanza al siguiente
         }
-        throw new ListaVaciaExceptions("Error: La Lista Simplemente Enlazada está vacía, no podemos eliminar el dato buscado"); // Si La Lista Simplemente Enlazada está vacia, lanzamos el error
+        throw new ListaElementoNoEncontradoException(); // Si no encontramos el elemento, lanzamos el error
     }
     /** Devuelve true si la lista está vacía, false si no.*/
     public boolean isEmpty(){

@@ -1,5 +1,6 @@
 package LDE;
 
+import Exceptions.ListaElementoNoEncontradoException;
 import Exceptions.ListaIndiceInvalidoExceptions;
 import Exceptions.ListaVaciaExceptions;
 
@@ -56,7 +57,7 @@ public class ListaDoblementeEnlazada<T extends Comparable<T>> {
             }
             actual=actual.siguiente; // Avanzamos al siguiente elemento
         }
-        return null; // Si no encontramos el dato devolvemos null
+        return null; // Devolvemos null, si no encontramos el elemento
     }
     /** Busca y elimina un dato por valor.*/
     public T del(T dato){
@@ -65,7 +66,7 @@ public class ListaDoblementeEnlazada<T extends Comparable<T>> {
             actual=actual.siguiente; // Avanzamos hasta encontrar el dato
         }
         if (actual==null){
-            throw new ListaVaciaExceptions("Error: La Lista Doblemente Enlazada está vacía, no podemos eliminar el dato buscado"); // Si La Lista Doblemente Enlazada está vacia, lanzamos el error
+            throw new ListaElementoNoEncontradoException(); // Si La Lista Doblemente Enlazada está vacia, lanzamos el error
         }
         if (actual==primero){  // Si el elemento a eliminar es el primero
             primero=actual.siguiente; // El segundo elemento pasa a ser el primero
@@ -248,15 +249,19 @@ public class ListaDoblementeEnlazada<T extends Comparable<T>> {
     }
     /** Elimina y devuelve el primer dato de la lista.*/
     public T removeFirst(){
-        if(primero==null){
-            throw new ListaVaciaExceptions("Error: La Lista Doblemente Enlazada está vacía, no podemos eliminar el primer elemento"); // Si La Lista Doblemente Enlazada está vacia, lanzamos el error
+        if(primero == null){
+            throw new ListaVaciaExceptions("...");
         }
-        ElementoDE<T>actual=primero;    // Guardamos el primero para devolverlo
-        primero=primero.siguiente;       // El segundo elemento pasa a ser el primero
-        primero.anterior=null;           // El nuevo primero no tiene anterior
-        actual.siguiente=null;           // Desconectamos el elemento eliminado
-        tamaño--;                        // Decrementamos el tamaño
-        return actual.dato;
+        ElementoDE<T> actual = primero;    // Guardamos el primero para devolverlo
+        primero = primero.siguiente;       // El segundo elemento pasa a ser el primero
+        if(primero != null){
+            primero.anterior = null;       // El nuevo primero no tiene anterior
+        } else {
+            ultimo = null;                 // Si la lista queda vacía vaciamos el último
+        }
+        actual.siguiente = null;           // Desconectamos el elemento eliminado
+        tamaño--;
+        return actual.dato;                // Devolvemos el dato del elemento eliminado
     }
     /** Elimina y devuelve el último dato de la lista.*/
     public T removeLast(){
