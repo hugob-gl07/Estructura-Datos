@@ -14,4 +14,9 @@ public class ElementoSE<T> {
         this.dato=dato;      // Almacenamos el dato
         this.siguiente=null; // El nodo no apunta a ningún siguiente
     }
+    public T getDato() { return dato; }
+    public ElementoSE<T> getSiguiente() { return siguiente; }
+    public void setSiguiente(ElementoSE<T> siguiente) {
+        this.siguiente = siguiente;
+    }
 }

@@ -12,12 +12,12 @@ public class ArbolBusquedaBinariaEnteros extends ArbolBusquedaBinaria<Integer> {
      * @return suma de todos los enteros del árbol, 0 si el árbol está vacío
      */
     public int getSuma() {
-        ListaSimplementeEnlazada<Integer> lista = getListaOrdenadaCentral();
-        Iterador<Integer> iterador = lista.getIterador();
-        int suma = 0;
+        ListaSimplementeEnlazada<Integer> lista = getListaOrdenadaCentral(); // Obtenemos todos los elementos en orden central (inorden)
+        Iterador<Integer> iterador = lista.getIterador();                    // Creamos un iterador para recorrer la lista
+        int suma = 0;                                                        // Inicializamos el acumulador a 0
         while (iterador.hasNext()) {
-            suma += iterador.next();
+            suma += iterador.next(); // Sumamos cada elemento al acumulador
         }
-        return suma;
+        return suma; // Devolvemos la suma total de todos los elementos
     }
 }

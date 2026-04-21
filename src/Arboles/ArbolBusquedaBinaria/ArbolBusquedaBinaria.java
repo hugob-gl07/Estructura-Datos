@@ -303,7 +303,7 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
             Cola<Nodo<T>> cola = new Cola<>();
             cola.enqueue(raiz); // Iniciamos el recorrido BFS desde la raíz
             boolean encontrado = false; // Se activa cuando encontramos un nodo sin algún hijo
-            while (cola.peek() != null) {
+            while (!cola.isEmpty()) {
                 Nodo<T> actual = cola.dequeue(); // Sacamos el siguiente nodo a procesar
                 Nodo<T> izquierdo = actual.getIzquierdo();
                 Nodo<T> derecha = actual.getDerecho();
@@ -315,9 +315,12 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
                 } else {
                     encontrado = true; // No hay hijo izquierdo: activamos la bandera de hueco
                 }
+                if (derecha == null) {
+                    encontrado = true; // Hay hueco: cualquier nodo posterior debe ser hoja
+                }
                 // Comprobamos el hijo derecho independientemente del izquierdo
                 if (derecha != null && encontrado) {
-                    respuesta = false; // Hay hijo derecho pero ya habíamos encontrado un hueco
+                    respuesta = false; // Hay hijo derecho, pero ya habíamos encontrado un hueco
                 } else if (derecha != null) {
                     cola.enqueue(derecha); // Hijo derecho existe: lo añadimos a la cola
                 }
