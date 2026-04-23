@@ -1,8 +1,4 @@
 package LDE;
-
-import LDE.Iterador;
-import LDE.LDEOrdenada;
-import LDE.ListaDoblementeEnlazada;
 import Exceptions.ListaElementoNoEncontradoException;
 import Exceptions.ListaIndiceInvalidoExceptions;
 import Exceptions.ListaVaciaExceptions;
@@ -167,37 +163,37 @@ public class LDETest {
     static void test_getFirst_vacia_lanzaExcepcion() {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         assertThrows("Vacía: getFirst() lanza ListaVaciaExceptions",
-            ListaVaciaExceptions.class, () -> l.getFirst());
+                ListaVaciaExceptions.class, () -> l.getFirst());
     }
 
     static void test_getLast_vacia_lanzaExcepcion() {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         assertThrows("Vacía: getLast() lanza ListaVaciaExceptions",
-            ListaVaciaExceptions.class, () -> l.getLast());
+                ListaVaciaExceptions.class, () -> l.getLast());
     }
 
     static void test_removeFirst_vacia_lanzaExcepcion() {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         assertThrows("Vacía: removeFirst() lanza ListaVaciaExceptions",
-            ListaVaciaExceptions.class, () -> l.removeFirst());
+                ListaVaciaExceptions.class, () -> l.removeFirst());
     }
 
     static void test_removeLast_vacia_lanzaExcepcion() {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         assertThrows("Vacía: removeLast() lanza ListaVaciaExceptions",
-            ListaVaciaExceptions.class, () -> l.removeLast());
+                ListaVaciaExceptions.class, () -> l.removeLast());
     }
 
     static void test_del_vacia_lanzaExcepcion() {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         assertThrows("Vacía: del() lanza ListaElementoNoEncontradoException",
-            ListaElementoNoEncontradoException.class, () -> l.del(5));
+                ListaElementoNoEncontradoException.class, () -> l.del(5));
     }
 
     static void test_getAt_vacia_lanzaExcepcion() {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         assertThrows("Vacía: getAt(0) lanza ListaIndiceInvalidoExceptions",
-            ListaIndiceInvalidoExceptions.class, () -> l.getAt(0));
+                ListaIndiceInvalidoExceptions.class, () -> l.getAt(0));
     }
 
     static void test_excepcion_mensajes_descriptivos() {
@@ -205,7 +201,7 @@ public class LDETest {
         try { l.getFirst(); registrarFallo("excepción getFirst: no se lanzó"); }
         catch (ListaVaciaExceptions e) {
             assertIsTrue("excepción getFirst: mensaje no vacío",
-                e.getMessage() != null && !e.getMessage().isBlank());
+                    e.getMessage() != null && !e.getMessage().isBlank());
         }
     }
 
@@ -353,7 +349,7 @@ public class LDETest {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         l.add(1); l.add(2);
         assertThrows("del: lanza ListaElementoNoEncontradoException si no existe",
-            ListaElementoNoEncontradoException.class, () -> l.del(99));
+                ListaElementoNoEncontradoException.class, () -> l.del(99));
     }
 
     static void test_del_size_decrece() {
@@ -389,14 +385,14 @@ public class LDETest {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         l.add(1);
         assertThrows("getAt(-1): lanza ListaIndiceInvalidoExceptions",
-            ListaIndiceInvalidoExceptions.class, () -> l.getAt(-1));
+                ListaIndiceInvalidoExceptions.class, () -> l.getAt(-1));
     }
 
     static void test_getAt_indiceFueraDerango_lanzaExcepcion() {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         l.add(1); l.add(2);
         assertThrows("getAt(5): lanza ListaIndiceInvalidoExceptions",
-            ListaIndiceInvalidoExceptions.class, () -> l.getAt(5));
+                ListaIndiceInvalidoExceptions.class, () -> l.getAt(5));
     }
 
     // ==================================================================
@@ -435,7 +431,7 @@ public class LDETest {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         l.add(1);
         assertThrows("insertAt(5): lanza ListaIndiceInvalidoExceptions",
-            ListaIndiceInvalidoExceptions.class, () -> l.insertAt(5, 99));
+                ListaIndiceInvalidoExceptions.class, () -> l.insertAt(5, 99));
     }
 
     // ==================================================================
@@ -474,14 +470,14 @@ public class LDETest {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         l.add(1);
         assertThrows("removeAt(5): lanza ListaIndiceInvalidoExceptions",
-            ListaIndiceInvalidoExceptions.class, () -> l.removeAt(5));
+                ListaIndiceInvalidoExceptions.class, () -> l.removeAt(5));
     }
 
     static void test_removeAt_negativo_lanzaExcepcion() {
         ListaDoblementeEnlazada<Integer> l = new ListaDoblementeEnlazada<>();
         l.add(1);
         assertThrows("removeAt(-1): lanza ListaIndiceInvalidoExceptions",
-            ListaIndiceInvalidoExceptions.class, () -> l.removeAt(-1));
+                ListaIndiceInvalidoExceptions.class, () -> l.removeAt(-1));
     }
 
     // ==================================================================
@@ -766,7 +762,7 @@ public class LDETest {
         assertEqualString("LDEOrdenada String: getFirst() es 'cereza'", "cereza", l.getFirst());
         assertEqualString("LDEOrdenada String: getLast() es 'pera'",    "pera",   l.getLast());
         assertEqualString("LDEOrdenada String: toString correcto",
-            "[cereza, manzana, pera]", l.toString());
+                "[cereza, manzana, pera]", l.toString());
     }
 
     // ==================================================================

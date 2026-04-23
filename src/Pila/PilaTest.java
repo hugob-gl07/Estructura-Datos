@@ -1,6 +1,5 @@
 package Pila;
 import Exceptions.PilaVaciaExceptions;
-
 /**
  * Suite de tests manuales para Pila.
  * No requiere JUnit. Ejecutar con el botón ▶️ de IntelliJ.

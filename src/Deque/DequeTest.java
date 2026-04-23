@@ -1,5 +1,4 @@
 package Deque;
-import Deque.Deque;
 import Exceptions.ListaVaciaExceptions;
 
 /**
