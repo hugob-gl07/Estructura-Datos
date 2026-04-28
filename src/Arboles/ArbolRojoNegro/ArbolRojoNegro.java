@@ -122,19 +122,21 @@ public class ArbolRojoNegro {
      * @return nodo raíz del subárbol tras la inserción
      */
     private NodoRojoNegro insertarBST(NodoRojoNegro raiz, int valor, NodoRojoNegro padre){
+        NodoRojoNegro resultado = null;
         if(raiz == null){
             NodoRojoNegro nodo = new NodoRojoNegro(valor); // Posición encontrada: creamos el nuevo nodo rojo
             nodo.setPadre(padre);                           // Asignamos el padre para mantener el puntero ascendente
-            return nodo;
+            resultado=nodo;
         }
         if (valor < raiz.getValor()) {
             raiz.setIzquierdo(insertarBST(raiz.getIzquierdo(), valor, raiz)); // El valor es menor: bajamos por la izquierda
-            return raiz;
+            resultado=raiz;
         }
         else {
             raiz.setDerecho(insertarBST(raiz.getDerecho(), valor, raiz)); // El valor es mayor o igual: bajamos por la derecha
-            return raiz;
+            resultado=raiz;
         }
+        return resultado;
     }
 
     /**
