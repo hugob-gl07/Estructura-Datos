@@ -45,8 +45,12 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
     /**
      * Añade un nuevo dato al árbol manteniendo el orden BST.
      * @param dato valor a insertar
+     * @throws IllegalArgumentException si el dato es nulo
      */
     public void add(T dato) {
+        if(dato==null) {
+            throw new IllegalArgumentException("El dato no puede ser nulo.");
+        }
         raiz = insertar(raiz, dato); // LLamamos al método insertar
     }
     /**
@@ -126,13 +130,14 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
      * @return altura del subárbol, 0 si el nodo es null
      */
     private int altura(Nodo<T> nodo) {
-        if (nodo == null) {
-            return 0; // Caso base: un nodo inexistente tiene altura 0
+        int respuesta = 0;
+        if (nodo != null) {
+            int alturaIzquierda = altura(nodo.getIzquierdo()); // Altura del subárbol izquierdo
+            int alturaDerecha = altura(nodo.getDerecho());      // Altura del subárbol derecho
+            int altura = 1 + Math.max(alturaIzquierda, alturaDerecha); // El nodo actual suma 1 al camino más largo
+            respuesta= altura; // Devolvemos la altura calculada
         }
-        int alturaIzquierda = altura(nodo.getIzquierdo()); // Altura del subárbol izquierdo
-        int alturaDerecha = altura(nodo.getDerecho());      // Altura del subárbol derecho
-        int altura = 1 + Math.max(alturaIzquierda, alturaDerecha); // El nodo actual suma 1 al camino más largo
-        return altura; // Devolvemos la altura calculada
+        return respuesta;
     }
     /**
      * Devuelve la altura total del árbol.
@@ -159,17 +164,23 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
             listaDatosNivel(nodo.getDerecho(), nivel - 1, lista);
         }
     }
+
     /**
      * Devuelve una lista con los datos de todos los nodos que están en el nivel indicado.
      * El nivel 0 corresponde a la raíz.
      * @param nivel nivel del árbol a consultar
      * @return lista con los datos del nivel indicado
+     * @throws IllegalArgumentException si el nivel es negativo
      */
     public ListaSimplementeEnlazada<T> getListaDatosNivel(int nivel) {
+        if(nivel < 0) {
+            throw new IllegalArgumentException("El nivel no puede ser negativo.");
+        }
         ListaSimplementeEnlazada<T> lista = new ListaSimplementeEnlazada<>(); // Creamos una Lista Simplemente Enlazada para almacenar la información
         listaDatosNivel(raiz, nivel, lista); // Llamamos al método listaDatosNivel
         return lista; // Devolvemos la lista
     }
+
     /**
      * Recorre el árbol aprovechando la propiedad BST para encontrar el camino
      * desde la raíz hasta el nodo que contiene el dato buscado.
@@ -190,17 +201,23 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
             getcamino(dato, nodo.getDerecho(), lista); // El dato es mayor: continuamos por la derecha
         }
     }
+
     /**
      * Devuelve una lista con el camino desde la raíz hasta el nodo que contiene el dato.
      * Si el dato no existe devuelve una lista vacía.
      * @param dato valor a buscar
      * @return lista con los nodos del camino, desde la raíz hasta el dato
+     * @throws IllegalArgumentException si el dato es nulo
      */
     public ListaSimplementeEnlazada<T> getListaCamino(T dato) {
+        if (dato == null) {
+            throw new IllegalArgumentException("El dato no puede ser nulo.");
+        }
         ListaSimplementeEnlazada<T> lista = new ListaSimplementeEnlazada<>(); // Creamos una Lista Simplemente Enlazada para almacenar los datos
         getcamino(dato, raiz, lista); // Llamamos al método getcamino
         return lista; // Devolvemos la lista creada
     }
+
     /**
      * Devuelve el subárbol izquierdo de la raíz como un nuevo árbol independiente.
      * @return subárbol izquierdo, o null si no existe
@@ -217,6 +234,7 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
         }
         return respuesta;
     }
+
     /**
      * Devuelve el subárbol derecho de la raíz como un nuevo árbol independiente.
      * @return subárbol derecho, o null si no existe
@@ -233,6 +251,7 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
         }
         return respuesta; //Devolvemos si el arbol existe o no
     }
+
     /**
      * Comprueba recursivamente si el subárbol cuya raíz es el nodo dado es homogéneo.
      * Un árbol es homogéneo si todos sus nodos internos tienen exactamente 2 hijos.
@@ -253,6 +272,7 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
         }
         return respuesta;
     }
+
     /**
      * Indica si el árbol es homogéneo.
      * Un árbol es homogéneo si todos sus nodos internos tienen exactamente 2 hijos.
@@ -261,6 +281,7 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
     public boolean isArbolHomogeneo() {
         return isHomogeneo(raiz); // LLamamos al método isHomogeneo con la raíz del árbol
     }
+
     /**
      * Comprueba recursivamente si el subárbol es completo.
      * Un árbol es completo si todas sus hojas están al mismo nivel.
@@ -270,16 +291,19 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
      * @return true si el subárbol es completo, false en caso contrario
      */
     private boolean isCompleto(Nodo<T> nodo, int nivelActual, int altura) {
+        boolean respuesta = false;
         if (nodo == null) {
-            return true; // Rama vacía: no hay hoja que viole la condición
+            respuesta=true;
         } else if (nodo.getIzquierdo() == null && nodo.getDerecho() == null) {
             // Es una hoja: comprobamos que está exactamente en el nivel esperado
-            return nivelActual == altura;
+            respuesta= (nivelActual == altura);
         } else {
             // No es hoja: bajamos un nivel en ambos subárboles y comprobamos recursivamente
-            return isCompleto(nodo.getIzquierdo(), nivelActual + 1, altura) && isCompleto(nodo.getDerecho(), nivelActual + 1, altura);
+            respuesta= isCompleto(nodo.getIzquierdo(), nivelActual + 1, altura) && isCompleto(nodo.getDerecho(), nivelActual + 1, altura);
         }
+        return respuesta;
     }
+
     /**
      * Indica si el árbol es completo.
      * Un árbol es completo si todas sus hojas están al mismo nivel.
@@ -289,6 +313,7 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
         int altura = getAltura() - 1; // Las hojas deben estar en el último nivel (altura - 1)
         return isCompleto(raiz, 0, altura);
     }
+
     /**
      * Comprueba si el árbol es casi completo usando un recorrido por niveles (BFS).
      * Un árbol es casi completo si todos los niveles están llenos excepto el último,
@@ -328,6 +353,7 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
         }
         return respuesta;
     }
+
     /**
      * Indica si el árbol es casi completo.
      * Un árbol es casi completo si todos los niveles están llenos excepto el último,
@@ -337,6 +363,7 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
     public boolean isArbolSemiCompleto() {
         return isSemiCompleto(); // LLamamos al método isSemiCompleto para comprobar la condición
     }
+
     /**
      * Calcula recursivamente el grado máximo del subárbol cuya raíz es el nodo dado.
      * El grado de un nodo es el número de hijos que tiene (0, 1 o 2).
@@ -364,6 +391,7 @@ public class ArbolBusquedaBinaria<T extends Comparable<T>> {
         }
         return respuesta; // Devolvemos la variable respuesta
     }
+
     /**
      * Devuelve el grado del árbol, es decir, el número máximo de hijos
      * que tiene cualquier nodo del árbol.

@@ -49,9 +49,13 @@ public class Grafo {
      * Añade un nuevo nodo con el nombre indicado al grafo.
      * Si ya existe un nodo con ese nombre no hace nada para evitar duplicados.
      * @param nombre nombre del nuevo nodo
+     * @throws IllegalArgumentException si el nombre es nulo
      */
     public void agregarNodo(String nombre) {
-        if (buscarEntrada(nombre) == null) {
+        if(nombre==null){
+            throw new IllegalArgumentException("El nombre no puede ser nulo.");
+        }
+        else if (buscarEntrada(nombre) == null) {
             Nodo nuevoNodo = new Nodo(contador, nombre);                       // Creamos el nodo con el id actual del contador
             EntradaAdyacencia nuevaEntrada = new EntradaAdyacencia(nuevoNodo); // Creamos su entrada en la lista de adyacencia
             entradas.add(nuevaEntrada); // Añadimos la entrada al grafo
@@ -66,8 +70,12 @@ public class Grafo {
      * @param origen   nombre del nodo de partida
      * @param destino  nombre del nodo de llegada
      * @param etiqueta etiqueta o relación que describe la arista
+     * @throws IllegalArgumentException si alguno de los parámetros es nulo
      */
     public void agregarArista(String origen, String destino, String etiqueta) {
+        if(origen == null || destino == null || etiqueta == null) {
+            throw new IllegalArgumentException("Error: No se permiten valores nulos para origen, destino o etiqueta"); // Validamos que no se pasen valores nulos
+        }
         agregarNodo(origen);  // Creamos el nodo origen si no existe todavía
         agregarNodo(destino); // Creamos el nodo destino si no existe todavía
         EntradaAdyacencia entradaOrigen  = buscarEntrada(origen);  // Buscamos la entrada del nodo origen
@@ -343,6 +351,7 @@ public class Grafo {
      * @return lista de nodos del camino de menor coste en orden origen → destino, o null si no existe
      */
     public ListaSimplementeEnlazada<Nodo> dijkstra(String origen, String destino) {
+        ListaSimplementeEnlazada<Nodo> resultado = null;
         if (buscarEntrada(origen) != null && buscarEntrada(destino) != null) {
             ListaSimplementeEnlazada<EntradaDistancia> distancias = new ListaSimplementeEnlazada<>();
             for (int i = 0; i < entradas.getSize(); i++) {
@@ -369,7 +378,7 @@ public class Grafo {
                                 padres.add(padre); // Añadimos las aristas padre para reconstruir el camino
                             }
                         }
-                        return reconstruirCamino(padres, origen, destino);
+                        resultado=reconstruirCamino(padres, origen, destino);
                     }
                     EntradaAdyacencia entrada = buscarEntrada(actual.getNodo());
                     ListaSimplementeEnlazada<Arista> aristas = entrada.getAristas();
@@ -390,7 +399,7 @@ public class Grafo {
                 }
             }
         }
-        return null; // No existe camino entre origen y destino
+        return resultado; // No existe camino entre origen y destino
     }
 
     /**

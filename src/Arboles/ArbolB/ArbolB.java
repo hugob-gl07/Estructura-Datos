@@ -2,7 +2,7 @@ package Arboles.ArbolB;
 
 /**
  * Implementación de un Árbol B genérico de orden configurable.
- * Un Árbol B es un árbol de búsqueda auto-balanceado donde cada nodo puede almacenar
+ * Un Árbol B es un árbol de búsqueda autobalanceado donde cada nodo puede almacenar
  * múltiples claves y tener múltiples hijos. Garantiza que todas las hojas están al mismo nivel.
  * Con un árbol de orden {@code n}, cada nodo puede tener hasta {@code n - 1} claves
  * y hasta {@code n} hijos.
@@ -15,8 +15,12 @@ public class ArbolB<T extends Comparable<T>> {
     /**
      * Crea un Árbol B vacío con el orden indicado.
      * @param orden orden del árbol (número máximo de hijos por nodo)
+     * @throws IllegalArgumentException si el orden es menor a 2, ya que un árbol de orden 1 no es válido
      */
     public ArbolB(int orden) {
+        if(orden<2){
+            throw new IllegalArgumentException("El orden del árbol debe ser al menos 2."); // Un árbol de orden menor a 2 no es válido
+        }
         this.raiz = null;   // El árbol comienza vacío
         this.orden = orden; // Guardamos el orden del árbol
     }
@@ -33,8 +37,12 @@ public class ArbolB<T extends Comparable<T>> {
      * Comprueba si un dato existe en el árbol.
      * @param dato valor a buscar
      * @return true si el dato está en el árbol, false en caso contrario
+     * @throws IllegalArgumentException si el dato es nulo
      */
     public boolean buscar(T dato) {
+        if(dato == null) {
+            throw new IllegalArgumentException("El dato no puede ser nulo.");
+        }
         return buscar(raiz, dato); // Iniciamos la búsqueda desde la raíz
     }
 
@@ -46,31 +54,36 @@ public class ArbolB<T extends Comparable<T>> {
      * @return true si el dato se encuentra, false en caso contrario
      */
     private boolean buscar(NodoB<T> nodo, T dato) {
-        if (nodo == null) {
-            return false; // Llegamos a una rama vacía: el dato no existe en el árbol
+        boolean respuesta = false;
+        if (nodo != null) {
+            int i = 0;
+            // Avanzamos por las claves del nodo mientras el dato sea mayor que la clave actual
+            while (i < nodo.getDatos().getSize() && dato.compareTo(nodo.getDatos().getAt(i)) > 0) {
+                i++;
+            }
+            // Comprobamos si el dato coincide con la clave en la posición i
+            if (i < nodo.getDatos().getSize() && dato.compareTo(nodo.getDatos().getAt(i)) == 0) {
+                respuesta = true; // Dato encontrado en este nodo
+            } else if (nodo.getHijos().isEmpty()) {
+                respuesta = false; // Nodo hoja sin coincidencia: el dato no existe
+            } else {
+                respuesta = buscar(nodo.getHijos().getAt(i), dato); // Bajamos al hijo correspondiente y continuamos la búsqueda
+            }
         }
-        int i = 0;
-        // Avanzamos por las claves del nodo mientras el dato sea mayor que la clave actual
-        while (i < nodo.getDatos().getSize() && dato.compareTo(nodo.getDatos().getAt(i)) > 0) {
-            i++;
-        }
-        // Comprobamos si el dato coincide con la clave en la posición i
-        if (i < nodo.getDatos().getSize() && dato.compareTo(nodo.getDatos().getAt(i)) == 0) {
-            return true; // Dato encontrado en este nodo
-        }
-        if (nodo.getHijos().isEmpty()) {
-            return false; // Nodo hoja sin coincidencia: el dato no existe
-        }
-        return buscar(nodo.getHijos().getAt(i), dato); // Bajamos al hijo correspondiente y continuamos la búsqueda
+        return respuesta;
     }
 
     /**
      * Añade un nuevo dato al árbol manteniendo las propiedades del Árbol B.
      * Si la inserción provoca que la raíz se desborde, se crea una nueva raíz.
      * @param dato valor a insertar
+     * @throws IllegalArgumentException si el dato es nulo
      */
     public void add(T dato) {
-        if (raiz == null) {
+        if(dato==null) {
+            throw new IllegalArgumentException("El dato no puede ser nulo.");
+        }
+        else if (raiz == null) {
             // El árbol estaba vacío: creamos la raíz con el primer dato
             this.raiz = new NodoB<T>();
             raiz.getDatos().add(dato);
@@ -95,6 +108,7 @@ public class ArbolB<T extends Comparable<T>> {
      * @return un ResultadoSplit con el dato promovido y el nuevo hermano si hubo split, null si no
      */
     private ResultadoSplit<T> add(NodoB<T> nodo, T dato) {
+        ResultadoSplit<T> respuesta = null;
         int i = 0;
         // Buscamos la posición correcta dentro del nodo para mantener el orden
         while (i < nodo.getDatos().getSize() && dato.compareTo(nodo.getDatos().getAt(i)) > 0) {
@@ -115,15 +129,15 @@ public class ArbolB<T extends Comparable<T>> {
             }
         }
         if (nodo.getDatos().getSize() >= this.orden) {
-            return split(nodo); // El nodo está lleno: lo dividimos y propagamos el resultado hacia arriba
+            respuesta= split(nodo); // El nodo está lleno: lo dividimos y propagamos el resultado hacia arriba
         }
-        return null; // No hubo desbordamiento, no hay nada que propagar
+        return respuesta; // No hubo desbordamiento, no hay nada que propagar
     }
 
     /**
      * Divide un nodo lleno en dos nodos y devuelve el dato central que debe subir al padre.
      * La mitad izquierda de las claves queda en el nodo original,
-     * la mitad derecha pasa a un nuevo nodo hermano.
+     * La mitad derecha pasa a un nuevo nodo hermano.
      * Si el nodo tiene hijos, también se distribuyen entre los dos nodos.
      * @param nodo nodo a dividir
      * @return ResultadoSplit con el dato que sube al padre y el nuevo nodo hermano derecho
@@ -163,6 +177,7 @@ public class ArbolB<T extends Comparable<T>> {
      * @param dato valor a eliminar
      */
     private void remove(NodoB<T> nodo, T dato) {
+        boolean necesitaRequilibrar = false; // Indica si algún hijo fue modificado y puede necesitar reequilibrio
         int i = 0;
         // Buscamos la posición del dato dentro de las claves del nodo actual
         while (i < nodo.getDatos().getSize() && dato.compareTo(nodo.getDatos().getAt(i)) > 0) {
@@ -174,9 +189,8 @@ public class ArbolB<T extends Comparable<T>> {
         if (i < nodo.getDatos().getSize() && dato.compareTo(nodo.getDatos().getAt(i)) == 0) {
             // El dato se encontró en este nodo
             if (nodo.getHijos().getSize() == 0) {
-                // Nodo hoja: eliminamos el dato directamente sin necesidad de reemplazarlo
+                // Nodo hoja: eliminamos el dato directamente, no hay hijos que reequilibrar
                 nodo.getDatos().removeAt(i);
-                return;
             } else {
                 // Nodo interno: buscamos el sucesor en orden (el menor valor del subárbol derecho)
                 NodoB<T> actual = nodo.getHijos().getAt(i + 1);
@@ -192,20 +206,21 @@ public class ArbolB<T extends Comparable<T>> {
                 // Eliminamos el sucesor de donde estaba (en el subárbol derecho)
                 remove(nodo.getHijos().getAt(i + 1), sucesor);
                 ramaAReequilibrar = i + 1; // El hijo que puede quedar deficitario es el derecho
+                necesitaRequilibrar = true; // Modificamos un hijo interno: puede necesitar reequilibrio
             }
         } else {
             // El dato no está en este nodo: bajamos al hijo que corresponde por orden
             if (!nodo.getHijos().isEmpty()) {
                 remove(nodo.getHijos().getAt(i), dato); // Continuamos la eliminación en el hijo
                 ramaAReequilibrar = i;
-            } else {
-                return; // Nodo hoja sin coincidencia: el dato no existe en el árbol
+                necesitaRequilibrar = true; // Modificamos un hijo: puede necesitar reequilibrio
             }
+            // Si es hoja sin coincidencia: el dato no existe, necesitaRequilibrar queda false
         }
 
-        // Comprobamos si el hijo que modificamos quedó con menos del mínimo de claves permitido
+        // Solo reequilibramos si modificamos un hijo y éste quedó con menos del mínimo de claves
         int idx = ramaAReequilibrar;
-        if (!nodo.getHijos().isEmpty() && nodo.getHijos().getAt(idx).getDatos().getSize() < (this.orden - 1) / 2) {
+        if (necesitaRequilibrar && !nodo.getHijos().isEmpty() && nodo.getHijos().getAt(idx).getDatos().getSize() < (this.orden - 1) / 2) {
 
             if (idx > 0 && nodo.getHijos().getAt(idx - 1).getDatos().getSize() > (this.orden - 1) / 2) {
                 // El hermano izquierdo tiene claves de sobra: rotamos una clave hacia la derecha (préstamo izquierdo)
@@ -281,9 +296,13 @@ public class ArbolB<T extends Comparable<T>> {
     /**
      * Elimina un dato del árbol y reajusta la raíz si quedó vacía tras la eliminación.
      * @param dato valor a eliminar
+     * @throws IllegalArgumentException si el dato es nulo
      */
     public void remove(T dato) {
-        if (this.raiz == null) return; // El árbol está vacío, no hay nada que eliminar
+        if(dato == null) {
+            throw new IllegalArgumentException("El dato no puede ser nulo.");
+        }
+        else if (this.raiz == null) return; // El árbol está vacío, no hay nada que eliminar
 
         remove(this.raiz, dato); // Eliminamos el dato de forma recursiva desde la raíz
 

@@ -44,9 +44,10 @@ public class NodoB<T extends Comparable<T>> implements Comparable<NodoB<T>> {
      */
     @Override
     public int compareTo(NodoB<T> otro) {
-        if (this.datos.isEmpty() || otro.datos.isEmpty()) {
-            return 0; // No se puede comparar si alguno de los nodos está vacío
+        int respuesta=0;
+        if (!this.datos.isEmpty() && !otro.datos.isEmpty()) {
+            respuesta=this.datos.getAt(0).compareTo(otro.datos.getAt(0)); // Comparamos por el primer dato de cada nodo
         }
-        return this.datos.getAt(0).compareTo(otro.datos.getAt(0)); // Comparamos por el primer dato de cada nodo
+        return respuesta;
     }
 }

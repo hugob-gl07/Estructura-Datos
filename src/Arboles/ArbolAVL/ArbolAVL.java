@@ -169,8 +169,12 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBusquedaBinaria<T> {
     /**
      * Añade un nuevo dato al árbol AVL manteniendo el orden BST y el equilibrio AVL.
      * @param dato valor a insertar
+     * @throws IllegalArgumentException si el dato es nulo
      */
     public void add(T dato) {
+        if (dato == null) {
+            throw new IllegalArgumentException("El dato no puede ser nulo.");
+        }
         raiz = insertar((NodoAVL<T>) raiz, dato); // Insertamos desde la raíz y actualizamos la referencia
     }
 }
